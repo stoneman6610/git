@@ -1,0 +1,93 @@
+# ============================================================
+# 换行符策略：仓库内 + 工作区统一 LF
+# 说明：本文件优先级高于 core.autocrlf，可消除
+#       "LF will be replaced by CRLF" 告警
+# ============================================================
+
+* text=auto eol=lf
+
+# ---- 文档与配置 ----
+*.md            text eol=lf
+*.markdown      text eol=lf
+*.txt           text eol=lf
+*.json          text eol=lf
+*.jsonc         text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+*.toml          text eol=lf
+*.ini           text eol=lf
+*.cfg           text eol=lf
+*.conf          text eol=lf
+*.env           text eol=lf
+*.xml           text eol=lf
+*.csv           text eol=lf
+*.sql           text eol=lf
+.gitignore      text eol=lf
+.gitattributes  text eol=lf
+Dockerfile      text eol=lf
+Makefile        text eol=lf
+
+# ---- 前端 ----
+*.js            text eol=lf
+*.mjs           text eol=lf
+*.cjs           text eol=lf
+*.ts            text eol=lf
+*.jsx           text eol=lf
+*.tsx           text eol=lf
+*.vue           text eol=lf
+*.svelte        text eol=lf
+*.css           text eol=lf
+*.scss          text eol=lf
+*.less          text eol=lf
+*.html          text eol=lf
+*.htm           text eol=lf
+
+# ---- 后端与脚本 ----
+*.py            text eol=lf
+*.rb            text eol=lf
+*.go            text eol=lf
+*.rs            text eol=lf
+*.java          text eol=lf
+*.kt            text eol=lf
+*.php           text eol=lf
+*.c             text eol=lf
+*.h             text eol=lf
+*.cpp           text eol=lf
+*.hpp           text eol=lf
+*.cs            text eol=lf
+*.sh            text eol=lf
+*.bash          text eol=lf
+*.zsh           text eol=lf
+*.fish          text eol=lf
+
+# ---- Windows 脚本：必须 CRLF ----
+# cmd.exe 与部分 PowerShell 场景对 LF 兼容性差，保留原生 CRLF
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+*.ps1           text eol=crlf
+
+# ---- 二进制：不做换行转换，不参与文本 diff ----
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.bmp           binary
+*.ico           binary
+*.webp          binary
+*.svg           text eol=lf
+*.pdf           binary
+*.zip           binary
+*.gz            binary
+*.7z            binary
+*.jar           binary
+*.exe           binary
+*.dll           binary
+*.so            binary
+*.dylib         binary
+*.woff          binary
+*.woff2         binary
+*.ttf           binary
+*.otf           binary
+*.xlsx          binary
+*.docx          binary
+*.pptx          binary
