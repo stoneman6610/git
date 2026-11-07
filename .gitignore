@@ -1,0 +1,59 @@
+# ---- 操作系统 ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ---- 编辑器 / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-workspace
+
+# ---- 日志与临时文件 ----
+*.log
+logs/
+*.tmp
+*.temp
+*.bak
+*.cache
+
+# ---- 依赖与构建产物 ----
+node_modules/
+dist/
+build/
+out/
+target/
+.next/
+.nuxt/
+coverage/
+*.py[cod]
+__pycache__/
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# ---- 环境变量与密钥（切勿提交）----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+
+# ---- 工具 / 本地工作区数据 ----
+.workbuddy/
