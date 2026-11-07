@@ -1,0 +1,53 @@
+#!/bin/sh
+# ============================================================
+# pre-commit：提交前扫描暂存区中的密钥/凭证
+# 依赖：gitleaks >= 8.19（旧版请改用 protect --staged）
+# 启用：git config core.hooksPath .githooks
+# 跳过：git commit --no-verify（不推荐，密钥会进入历史）
+# ============================================================
+
+set -u
+
+# ---- 定位 gitleaks：优先 PATH，其次用户级安装目录 ----
+GITLEAKS=""
+if command -v gitleaks >/dev/null 2>&1; then
+    GITLEAKS="gitleaks"
+elif [ -x "$HOME/.local/bin/gitleaks.exe" ]; then
+    GITLEAKS="$HOME/.local/bin/gitleaks.exe"
+elif [ -x "$HOME/.local/bin/gitleaks" ]; then
+    GITLEAKS="$HOME/.local/bin/gitleaks"
+fi
+
+if [ -z "$GITLEAKS" ]; then
+    echo "⚠️  pre-commit: 未找到 gitleaks，跳过密钥扫描" >&2
+    echo "    安装参考: https://github.com/gitleaks/gitleaks#installing" >&2
+    # 不阻断提交，避免未安装的协作者无法工作
+    exit 0
+fi
+
+# ---- 没有暂存内容时无需扫描（如空提交）----
+if git diff --cached --quiet 2>/dev/null; then
+    exit 0
+fi
+
+echo "🔍 pre-commit: 扫描暂存区中的密钥..."
+
+"$GITLEAKS" git --staged --redact --no-banner --verbose
+status=$?
+
+if [ "$status" -ne 0 ]; then
+    cat >&2 <<'EOF'
+
+❌ 检测到疑似密钥，提交已被阻止。
+
+  处理方式：
+    · 误报      → 在 .gitleaks.toml 的 allowlists 中排除该路径/规则，
+                  或把指纹写入 .gitleaksignore
+    · 确属敏感  → 删除该内容并改用环境变量注入，不要提交
+    · 强行跳过  → git commit --no-verify（不推荐）
+
+  ⚠️ 若密钥已经 push 过，仅删除文件无效，必须吊销并轮换该密钥。
+EOF
+fi
+
+exit "$status"

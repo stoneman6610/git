@@ -1,0 +1,25 @@
+# gitleaks 配置：pre-commit 钩子使用
+# 由 .githooks/pre-commit 自动读取（gitleaks 会优先使用仓库根的 .gitleaks.toml）
+# 文档：https://github.com/gitleaks/gitleaks#configuration
+
+[extend]
+# 在 gitleaks 内置规则库（200+ 条：AWS/GCP/GitHub/Slack/Stripe/私钥/JWT…）基础上扩展，
+# 无需自己维护正则
+useDefault = true
+
+# ------------------------------------------------------------
+# 误报排除：需要时取消注释并填写
+# 命中后 gitleaks 会输出 Fingerprint，可据此精确忽略
+# ------------------------------------------------------------
+# [[allowlists]]
+# description = "文档中的示例占位符"
+# paths = [
+#     '''README\.md$''',
+#     '''docs/.*\.md$''',
+# ]
+#
+# [[allowlists]]
+# description = "测试用的固定假值"
+# regexes = [
+#     '''ghp_0000000000000000000000000000000000''',
+# ]
